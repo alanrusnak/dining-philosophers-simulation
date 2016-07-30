@@ -43,23 +43,29 @@ public abstract class Philosopher implements Runnable{
     protected abstract void pickUpForks();
     protected abstract void putDownForks();
 
-    protected void pickUpLeftFork(){
+    protected final void pickUpLeftFork(){
         table.pickUpFork(this, leftFork);
     }
 
-    protected void pickUpRightFork(){
+    protected final void pickUpRightFork(){
         table.pickUpFork(this, rightFork);
     }
 
-    protected void putDownLeftFork(){
+    protected final void putDownLeftFork(){
         table.putDownFork(this, leftFork);
     }
 
-    protected void putDownRightFork(){
+    protected final void putDownRightFork(){
         table.putDownFork(this, rightFork);
     }
 
+    public final Fork getLeftFork() {
+        return leftFork;
+    }
 
+    public final Fork getRightFork() {
+        return rightFork;
+    }
 
     private final void eat(){
         state = PhilosopherState.EATING;

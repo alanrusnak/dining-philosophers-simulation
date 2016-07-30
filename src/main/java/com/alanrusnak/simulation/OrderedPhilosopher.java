@@ -10,10 +10,17 @@ public class OrderedPhilosopher extends Philosopher {
     }
 
     protected void pickUpForks() {
-        //TODO
+        if(getLeftFork().getId() < getRightFork().getId()){
+            pickUpLeftFork();
+            pickUpRightFork();
+        } else {
+            pickUpRightFork();
+            pickUpLeftFork();
+        }
     }
 
     protected void putDownForks() {
-        //TODO
+        putDownLeftFork();
+        putDownRightFork();
     }
 }
