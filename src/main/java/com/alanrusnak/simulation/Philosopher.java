@@ -22,10 +22,22 @@ public abstract class Philosopher implements Runnable{
     }
 
     public final void run() {
-        pickUpForks();
-        eat();
-        putDownForks();
-        finishTurn();
+        while(table.isSimulationRunning()){
+            pickUpForks();
+            eat();
+            sleep();
+            putDownForks();
+            finishTurn();
+            sleep();
+        }
+    }
+
+    private void sleep() {
+        try {
+            Thread.sleep(table.getSleepTime());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     protected abstract void pickUpForks();
@@ -59,5 +71,10 @@ public abstract class Philosopher implements Runnable{
 
     public PhilosopherState getState() {
         return state;
+    }
+
+    @Override
+    public String toString() {
+        return "Philosopher " + id;
     }
 }

@@ -6,7 +6,7 @@ package com.alanrusnak.simulation;
 public class Fork {
 
     private final int id;
-    private Philosopher currentOwner;
+    private volatile Philosopher currentOwner;
 
     public Fork(int id){
         this.id = id;
@@ -27,5 +27,10 @@ public class Fork {
 
     public void setCurrentOwner(Philosopher currentOwner) {
         this.currentOwner = currentOwner;
+    }
+
+    @Override
+    public String toString() {
+        return "Fork " + id;
     }
 }
