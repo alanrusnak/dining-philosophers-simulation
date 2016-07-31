@@ -15,16 +15,29 @@ public class Simulation {
 
     private static final Logger log = LoggerFactory.getLogger(Simulation.class);
 
-    public static void main(String[] args){
-        log.info("Running main in Simulation");
-        Table table = new Table(1);
-        List<Philosopher> philosophers = createPhilosophers(table);
+    private Table table;
+    private List<Philosopher> philosophers;
+
+    public Simulation(){
+        super();
+        table = new Table(10);
+        philosophers = createPhilosophers(table);
+    }
+
+    public void startSimulation(){
+        log.info("Starting simulation");
+        table = new Table(10);
+        philosophers = createPhilosophers(table);
 
         ExecutorService executor = Executors.newCachedThreadPool();
         for (Philosopher philosopher : philosophers){
             log.info("Start {}", philosopher);
             executor.execute(philosopher);
         }
+    }
+
+    public static void main(String[] args){
+        new Simulation().startSimulation();
 
     }
 
@@ -37,6 +50,14 @@ public class Simulation {
             Fork rightFork = forks.get((i+1)%5);
             philosophers.add(new DeadlockPhilosopher(i, table, leftFork, rightFork));
         }
+        return philosophers;
+    }
+
+    public Table getTable(){
+        return table;
+    }
+
+    public List<Philosopher> getPhilosophers() {
         return philosophers;
     }
 }
