@@ -29,6 +29,7 @@ public class PhilosophersPanel extends JPanel {
 
     private List<Point> forkPositions = Arrays.asList(new Point(300,230), new Point(210,220), new Point(170, 290), new Point(240,340), new Point(320,320));
     private List<Integer> forkRotations = Arrays.asList(220,150,60,0,280);
+    private List<Point> platePositions = Arrays.asList(new Point(212,130), new Point(105,205), new Point(143,336), new Point(277,338), new Point(318,211));
 
     private Simulation simulation;
 
@@ -71,18 +72,14 @@ public class PhilosophersPanel extends JPanel {
     }
 
     private void paintFork(Graphics g, Fork fork) {
-         final Graphics2D g2d = (Graphics2D)g.create();
+        final Graphics2D g2d = (Graphics2D)g.create();
         try {
-
-
             g2d.translate((int)forkPositions.get(fork.getId()).getX(),(int)forkPositions.get(fork.getId()).getY());
             g2d.rotate(Math.toRadians(forkRotations.get(fork.getId())));
             g2d.drawImage(forkImage, 0, 0, null);
-
-            } finally {
+        } finally {
             g2d.dispose();
         }
-
     }
 
     private void paintFullPlates(Graphics g){
@@ -92,7 +89,13 @@ public class PhilosophersPanel extends JPanel {
     }
 
     private void paintFullPlate(Graphics g, Philosopher philosopher) {
-
+        final Graphics2D g2d = (Graphics2D)g.create();
+        try {
+            g2d.translate((int)platePositions.get(philosopher.getId()).getX(),(int)platePositions.get(philosopher.getId()).getY());
+            g2d.drawImage(fullPlateImage, 0, 0, null);
+        } finally {
+            g2d.dispose();
+        }
     }
 
 }

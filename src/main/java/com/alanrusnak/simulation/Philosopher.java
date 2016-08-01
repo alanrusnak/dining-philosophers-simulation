@@ -79,6 +79,10 @@ public abstract class Philosopher implements Runnable{
         return state;
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Philosopher " + id;
