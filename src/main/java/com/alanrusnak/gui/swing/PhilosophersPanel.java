@@ -30,6 +30,7 @@ public class PhilosophersPanel extends JPanel {
     private List<Point> forkPositions = Arrays.asList(new Point(300,230), new Point(210,220), new Point(170, 290), new Point(240,340), new Point(320,320));
     private List<Integer> forkRotations = Arrays.asList(220,150,60,0,280);
     private List<Point> platePositions = Arrays.asList(new Point(212,130), new Point(105,205), new Point(143,336), new Point(277,338), new Point(318,211));
+    private List<Point> philosophersPositions = Arrays.asList(new Point(252,50), new Point(45,185), new Point(110,436), new Point(377,438), new Point(438,231));
 
     private Simulation simulation;
 
@@ -59,6 +60,13 @@ public class PhilosophersPanel extends JPanel {
         paintBackgroundImage(g);
         paintFullPlates(g);
         paintForks(g);
+        paintPhilosophersPositions(g);
+    }
+
+    private void paintPhilosophersPositions(Graphics g) {
+        for(Point point : philosophersPositions){
+            g.drawRect((int)point.getX()-1, (int)point.getY()+1, 2, 2);
+        }
     }
 
     private void paintBackgroundImage(Graphics g) {
