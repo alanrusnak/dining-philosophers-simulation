@@ -33,4 +33,20 @@ public class Fork {
     public String toString() {
         return "Fork " + id;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Fork fork = (Fork) o;
+
+        return id == fork.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }

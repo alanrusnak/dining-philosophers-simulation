@@ -60,13 +60,6 @@ public class PhilosophersPanel extends JPanel {
         paintBackgroundImage(g);
         paintFullPlates(g);
         paintForks(g);
-        paintPhilosophersPositions(g);
-    }
-
-    private void paintPhilosophersPositions(Graphics g) {
-        for(Point point : philosophersPositions){
-            g.drawRect((int)point.getX()-1, (int)point.getY()+1, 2, 2);
-        }
     }
 
     private void paintBackgroundImage(Graphics g) {
@@ -82,12 +75,28 @@ public class PhilosophersPanel extends JPanel {
     private void paintFork(Graphics g, Fork fork) {
         final Graphics2D g2d = (Graphics2D)g.create();
         try {
-            g2d.translate((int)forkPositions.get(fork.getId()).getX(),(int)forkPositions.get(fork.getId()).getY());
+            g2d.translate((int)getForkPosition(fork).getX(),(int)getForkPosition(fork).getY());
             g2d.rotate(Math.toRadians(forkRotations.get(fork.getId())));
             g2d.drawImage(forkImage, 0, 0, null);
         } finally {
             g2d.dispose();
         }
+    }
+
+    private Point getForkPosition(Fork fork){
+        if(fork.getCurrentOwner() == null){
+            return forkPositions.get(fork.getId());
+        }
+        return getPickedUpForkPosition(fork);
+    }
+
+    private Point getPickedUpForkPosition(Fork fork) {
+        Point forkPosition = forkPositions.get(fork.getId());
+        Point philosopherPosition = philosophersPositions.get(fork.getCurrentOwner().getId());
+        int x = (int)(forkPosition.getX() + (philosopherPosition.getX() - forkPosition.getX())/2);
+        int y = (int)(forkPosition.getY() + (philosopherPosition.getY() - forkPosition.getY())/2);
+
+        return new Point(x,y);
     }
 
     private void paintFullPlates(Graphics g){
