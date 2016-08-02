@@ -1,5 +1,6 @@
 package com.alanrusnak.simulation;
 
+import com.alanrusnak.gui.swing.SwingGui;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,11 +17,19 @@ public class Table {
 
     private long sleepTime;
     private boolean simulationRunning;
+    private SwingGui swingGui;
 
     private List<Fork> forks;
 
     public Table(long sleepTime){
         this.sleepTime = sleepTime;
+        initializeForks();
+        simulationRunning = true;
+    }
+
+    public Table(int sleepTime, SwingGui swingGui) {
+        this.sleepTime = sleepTime;
+        this.swingGui = swingGui;
         initializeForks();
         simulationRunning = true;
     }
@@ -45,15 +54,23 @@ public class Table {
             }
             fork.setCurrentOwner(philosopher);
             log.info("{} picked up {}", philosopher, fork);
+            refreshGui();
         }
 
     }
 
     public void putDownFork(Philosopher philosopher, Fork fork) {
-        synchronized(fork){
+        synchronized(fork) {
             log.info("{} puts down {}", philosopher, fork);
             fork.setCurrentOwner(null);
             fork.notifyAll();
+            refreshGui();
+        }
+    }
+
+    private void refreshGui(){
+        if(swingGui != null){
+            swingGui.refresh();
         }
     }
 

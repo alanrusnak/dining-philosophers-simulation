@@ -101,7 +101,9 @@ public class PhilosophersPanel extends JPanel {
 
     private void paintFullPlates(Graphics g){
         for(Philosopher philosopher : simulation.getPhilosophers()){
-            paintFullPlate(g, philosopher);
+            if(philosopher.hasBothForks()){
+                paintFullPlate(g, philosopher);
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 package com.alanrusnak.simulation;
 
+import com.alanrusnak.gui.swing.SwingGui;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,16 +18,25 @@ public class Simulation {
 
     private Table table;
     private List<Philosopher> philosophers;
+    private SwingGui swingGui;
+    private static int SLEEP_TIME = 500;
 
     public Simulation(){
         super();
-        table = new Table(10);
+        table = new Table(SLEEP_TIME);
+        philosophers = createPhilosophers(table);
+    }
+
+    public Simulation(SwingGui swingGui){
+        super();
+        this.swingGui = swingGui;
+        table = new Table(SLEEP_TIME, swingGui);
         philosophers = createPhilosophers(table);
     }
 
     public void startSimulation(){
         log.info("Starting simulation");
-        table = new Table(10);
+        table = new Table(SLEEP_TIME, swingGui);
         philosophers = createPhilosophers(table);
 
         ExecutorService executor = Executors.newCachedThreadPool();

@@ -1,24 +1,31 @@
 package com.alanrusnak.gui.swing;
 
+import com.alanrusnak.simulation.Simulation;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by alan on 31/07/16.
  */
 public class ControlPanel extends JPanel {
 
-    private PhilosophersPanel philosophersPanel;
-
-    private JButton startSimulationButton;
+    private Simulation simulation;
 
 
-    public ControlPanel(PhilosophersPanel philosophersPanel) {
-        this.philosophersPanel = philosophersPanel;
+    public ControlPanel(Simulation simulation) {
+        this.simulation = simulation;
         init();
     }
 
     private void init(){
-        startSimulationButton = new JButton("Start Simulation");
+        JButton startSimulationButton = new JButton("Start Simulation");
+        startSimulationButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                simulation.startSimulation();
+            }
+        });
         add(startSimulationButton);
     }
 }

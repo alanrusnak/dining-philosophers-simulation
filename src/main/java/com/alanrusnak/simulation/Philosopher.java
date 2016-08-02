@@ -75,6 +75,10 @@ public abstract class Philosopher implements Runnable{
         state = PhilosopherState.WAITING;
     }
 
+    public boolean hasBothForks() {
+        return this.equals(leftFork.getCurrentOwner()) && this.equals(rightFork.getCurrentOwner());
+    }
+
     public PhilosopherState getState() {
         return state;
     }

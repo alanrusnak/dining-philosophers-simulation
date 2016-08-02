@@ -16,7 +16,7 @@ public class SwingGui extends JFrame {
     private Simulation simulation;
 
     public SwingGui(){
-        simulation = new Simulation();
+        simulation = new Simulation(this);
         initGui();
     }
 
@@ -25,7 +25,7 @@ public class SwingGui extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         philosophersPanel = new PhilosophersPanel(simulation);
-        controlPanel = new ControlPanel(philosophersPanel);
+        controlPanel = new ControlPanel(simulation);
 
         getContentPane().add(philosophersPanel, BorderLayout.CENTER);
         getContentPane().add(controlPanel, BorderLayout. SOUTH);
@@ -35,5 +35,10 @@ public class SwingGui extends JFrame {
 
     public static void main(String[] args){
         SwingGui gui = new SwingGui();
+    }
+
+    public void refresh() {
+        System.out.println("Repaint");
+        philosophersPanel.repaint();
     }
 }
