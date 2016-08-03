@@ -21,7 +21,7 @@ public class SwingGui extends JFrame {
     }
 
     private void initGui() {
-        setSize(500,600);
+        setSize(500,650);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         philosophersPanel = new PhilosophersPanel(simulation);

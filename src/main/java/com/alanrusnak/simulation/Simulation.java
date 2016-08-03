@@ -19,6 +19,7 @@ public class Simulation {
     private Table table;
     private List<Philosopher> philosophers;
     private SwingGui swingGui;
+    private boolean isRunning;
     private static int SLEEP_TIME = 250;
 
     public Simulation(){
@@ -69,5 +70,13 @@ public class Simulation {
 
     public List<Philosopher> getPhilosophers() {
         return philosophers;
+    }
+
+    public void togglePause() {
+        isRunning = !isRunning;
+    }
+
+    public boolean isPaused(){
+        return !isRunning;
     }
 }
