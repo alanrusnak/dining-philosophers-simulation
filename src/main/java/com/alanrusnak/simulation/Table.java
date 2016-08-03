@@ -42,30 +42,14 @@ public class Table {
     }
 
     public void pickUpFork(Philosopher philosopher, Fork fork) {
-        synchronized(fork){
-            log.info("{} wants to pick up {}", philosopher, fork);
-            while(!fork.isAvailable()) {
-                try {
-                    log.info("{} waiting to pick up {}", philosopher, fork);
-                    fork.wait();
-                } catch (InterruptedException e) {
-                    log.error("Error when {} was waiting for a fork", philosopher, e);
-                }
-            }
-            fork.setCurrentOwner(philosopher);
-            log.info("{} picked up {}", philosopher, fork);
-            refreshGui();
-        }
+        fork.getPickedUpBy(philosopher);
+        refreshGui();
 
     }
 
     public void putDownFork(Philosopher philosopher, Fork fork) {
-        synchronized(fork) {
-            log.info("{} puts down {}", philosopher, fork);
-            fork.setCurrentOwner(null);
-            fork.notifyAll();
-            refreshGui();
-        }
+        fork.getPutDownBy(philosopher);
+        refreshGui();
     }
 
     private void refreshGui(){

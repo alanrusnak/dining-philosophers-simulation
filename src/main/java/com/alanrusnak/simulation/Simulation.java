@@ -19,7 +19,7 @@ public class Simulation {
     private Table table;
     private List<Philosopher> philosophers;
     private SwingGui swingGui;
-    private static int SLEEP_TIME = 500;
+    private static int SLEEP_TIME = 250;
 
     public Simulation(){
         super();
@@ -58,7 +58,7 @@ public class Simulation {
         for(int i = 0; i < 5; i++){
             Fork leftFork = forks.get(i);
             Fork rightFork = forks.get((i+1)%5);
-            philosophers.add(new DeadlockPhilosopher(i, table, leftFork, rightFork));
+            philosophers.add(new OrderedPhilosopher(i, table, leftFork, rightFork));
         }
         return philosophers;
     }
