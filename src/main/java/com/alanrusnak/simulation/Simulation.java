@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static com.alanrusnak.simulation.SimulationType.DEADLOCK;
+
 /**
  * Created by alan on 30/07/16.
  */
@@ -26,20 +28,20 @@ public class Simulation {
     public Simulation(){
         super();
         table = new Table(DEFAULT_SLEEP_TIME);
-        philosophers = createPhilosophers(table);
+        philosophers = createPhilosophers(table, SimulationType.DEADLOCK);
     }
 
-    public Simulation(SwingGui swingGui){
+    public Simulation(SwingGui swingGui, SimulationType simulationType){
         super();
         this.swingGui = swingGui;
         table = new Table(DEFAULT_SLEEP_TIME, swingGui);
-        philosophers = createPhilosophers(table);
+        philosophers = createPhilosophers(table, simulationType);
     }
 
-    public void startSimulation(){
+    public void startSimulation(SimulationType simulationType, int sleepTime){
         log.info("Starting simulation");
-        table = new Table(DEFAULT_SLEEP_TIME, swingGui);
-        philosophers = createPhilosophers(table);
+        table = new Table(sleepTime, swingGui);
+        philosophers = createPhilosophers(table, simulationType);
 
         ExecutorService executor = Executors.newCachedThreadPool();
         for (Philosopher philosopher : philosophers){
@@ -49,20 +51,33 @@ public class Simulation {
     }
 
     public static void main(String[] args){
-        new Simulation().startSimulation();
+        new Simulation().startSimulation(SimulationType.ORDERED, 250);
 
     }
 
-    public static List<Philosopher> createPhilosophers(Table table){
-        List<Fork> forks = table.getForks();
+    public static List<Philosopher> createPhilosophers(Table table, SimulationType simulationType){
+
 
         List<Philosopher> philosophers = new ArrayList<Philosopher>();
         for(int i = 0; i < 5; i++){
-            Fork leftFork = forks.get(i);
-            Fork rightFork = forks.get((i+1)%5);
-            philosophers.add(new OrderedPhilosopher(i, table, leftFork, rightFork));
+            Philosopher philosopher = getNewPhilosoperForSimulationType(table, i, simulationType);
+            philosophers.add(philosopher);
         }
         return philosophers;
+    }
+
+    private static Philosopher getNewPhilosoperForSimulationType(Table table, int i, SimulationType simulationType) {
+        List<Fork> forks = table.getForks();
+        Fork leftFork = forks.get(i);
+        Fork rightFork = forks.get((i+1)%5);
+
+        switch (simulationType){
+            case DEADLOCK: return new DeadlockPhilosopher(i, table, leftFork, rightFork);
+            case ORDERED: return new OrderedPhilosopher(i, table, leftFork, rightFork);
+            default:
+                log.error("Invalid Simulation Type {}", simulationType);
+                return null;
+        }
     }
 
     public Table getTable(){

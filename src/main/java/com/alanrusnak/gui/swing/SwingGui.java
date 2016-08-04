@@ -1,6 +1,7 @@
 package com.alanrusnak.gui.swing;
 
 import com.alanrusnak.simulation.Simulation;
+import com.alanrusnak.simulation.SimulationType;
 import com.alanrusnak.simulation.Table;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ public class SwingGui extends JFrame {
     private Simulation simulation;
 
     public SwingGui(){
-        simulation = new Simulation(this);
+        simulation = new Simulation(this, SimulationType.ORDERED);
         initGui();
     }
 

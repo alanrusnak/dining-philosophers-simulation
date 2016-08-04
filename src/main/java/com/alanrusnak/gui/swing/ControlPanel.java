@@ -1,6 +1,7 @@
 package com.alanrusnak.gui.swing;
 
 import com.alanrusnak.simulation.Simulation;
+import com.alanrusnak.simulation.SimulationType;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -15,6 +16,9 @@ import java.awt.event.ActionListener;
 public class ControlPanel extends JPanel {
 
     private Simulation simulation;
+    JRadioButton orderedButton;
+    JRadioButton deadlockButton;
+    JSlider slider;
 
 
     public ControlPanel(Simulation simulation) {
@@ -34,7 +38,8 @@ public class ControlPanel extends JPanel {
         final JButton startSimulationButton = new JButton("Start New Simulation");
         startSimulationButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                simulation.startSimulation();
+                SimulationType simulationType = orderedButton.isSelected() ? SimulationType.ORDERED : SimulationType.DEADLOCK;
+                simulation.startSimulation(simulationType, slider.getValue());
             }
         });
         add(startSimulationButton);
@@ -51,7 +56,7 @@ public class ControlPanel extends JPanel {
     }
 
     private void addSimulationSpeedSelect(){
-        final JSlider slider = new JSlider(JSlider.HORIZONTAL, 250, 1000, 250);
+        slider = new JSlider(JSlider.HORIZONTAL, 250, 1000, 250);
         slider.setMajorTickSpacing(250);
         slider.setSnapToTicks(true);
         slider.setPaintTicks(false);
@@ -71,8 +76,8 @@ public class ControlPanel extends JPanel {
     }
 
     private void addPhilosoperTypeRadio(){
-        JRadioButton orderedButton = new JRadioButton("Ordered");
-        JRadioButton deadlockButton = new JRadioButton("Deadlock");
+        orderedButton = new JRadioButton("Ordered");
+        deadlockButton = new JRadioButton("Deadlock");
         orderedButton.setSelected(true);
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(orderedButton);
