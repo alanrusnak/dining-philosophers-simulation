@@ -23,7 +23,7 @@ public class ControlPanel extends JPanel {
     private void init(){
         setPreferredSize(new Dimension(500,100));
         addStartNewSimulationButton();
-        addPauseOrContinueButton();
+        addStopSimulationButton();
         addSimulationSpeedSelect();
         addPhilosoperTypeRadio();
     }
@@ -38,15 +38,14 @@ public class ControlPanel extends JPanel {
         add(startSimulationButton);
     }
 
-    private void addPauseOrContinueButton(){
-        final JButton pauseOrContinueButton = new JButton("Pause Simulation");
-        pauseOrContinueButton.addActionListener(new ActionListener() {
+    private void addStopSimulationButton(){
+        final JButton stopSimulationButton = new JButton("Stop Simulation");
+        stopSimulationButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                simulation.togglePause();
-                pauseOrContinueButton.setText(simulation.isPaused() ? "Continue Simulation" : "Pause Simulation");
+                simulation.stopSimulation();
             }
         });
-        add(pauseOrContinueButton);
+        add(stopSimulationButton);
     }
 
     private void addSimulationSpeedSelect(){

@@ -19,8 +19,9 @@ public class Simulation {
     private Table table;
     private List<Philosopher> philosophers;
     private SwingGui swingGui;
-    private boolean isRunning;
-    private static int SLEEP_TIME = 250;
+
+    //private volatile boolean isRunning;
+    private volatile int SLEEP_TIME = 250;
 
     public Simulation(){
         super();
@@ -72,11 +73,6 @@ public class Simulation {
         return philosophers;
     }
 
-    public void togglePause() {
-        isRunning = !isRunning;
-    }
+    public void stopSimulation(){ table.setSimulationRunning(false);}
 
-    public boolean isPaused(){
-        return !isRunning;
-    }
 }

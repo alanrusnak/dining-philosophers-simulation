@@ -15,11 +15,12 @@ public class Table {
 
     private static final Logger log = LoggerFactory.getLogger(Table.class);
 
-    private long sleepTime;
-    private boolean simulationRunning;
     private SwingGui swingGui;
-
     private List<Fork> forks;
+
+    private volatile long sleepTime;
+    private volatile boolean simulationRunning;
+
 
     public Table(long sleepTime){
         this.sleepTime = sleepTime;
