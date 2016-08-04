@@ -21,24 +21,24 @@ public class Simulation {
     private SwingGui swingGui;
 
     //private volatile boolean isRunning;
-    private volatile int SLEEP_TIME = 250;
+    private volatile int DEFAULT_SLEEP_TIME = 250;
 
     public Simulation(){
         super();
-        table = new Table(SLEEP_TIME);
+        table = new Table(DEFAULT_SLEEP_TIME);
         philosophers = createPhilosophers(table);
     }
 
     public Simulation(SwingGui swingGui){
         super();
         this.swingGui = swingGui;
-        table = new Table(SLEEP_TIME, swingGui);
+        table = new Table(DEFAULT_SLEEP_TIME, swingGui);
         philosophers = createPhilosophers(table);
     }
 
     public void startSimulation(){
         log.info("Starting simulation");
-        table = new Table(SLEEP_TIME, swingGui);
+        table = new Table(DEFAULT_SLEEP_TIME, swingGui);
         philosophers = createPhilosophers(table);
 
         ExecutorService executor = Executors.newCachedThreadPool();
@@ -75,4 +75,7 @@ public class Simulation {
 
     public void stopSimulation(){ table.setSimulationRunning(false);}
 
+    public void setSleepTime(int sleepTime) {
+        table.setSleepTime(sleepTime);
+    }
 }

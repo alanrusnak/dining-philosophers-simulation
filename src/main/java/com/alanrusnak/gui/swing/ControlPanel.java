@@ -3,6 +3,8 @@ package com.alanrusnak.gui.swing;
 import com.alanrusnak.simulation.Simulation;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,6 +56,16 @@ public class ControlPanel extends JPanel {
         slider.setSnapToTicks(true);
         slider.setPaintTicks(false);
         slider.setPaintLabels(true);
+
+        slider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent changeEvent) {
+                JSlider source = (JSlider)changeEvent.getSource();
+                if (!source.getValueIsAdjusting()) {
+                    int sleepTime = (int)source.getValue();
+                    simulation.setSleepTime(sleepTime);
+                }
+            }
+        });
 
         add(slider);
     }
