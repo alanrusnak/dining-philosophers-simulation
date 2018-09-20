@@ -9,10 +9,9 @@ import org.slf4j.LoggerFactory;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 import java.util.List;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 
 
@@ -47,7 +46,8 @@ public class PhilosophersPanel extends JPanel {
 
     private BufferedImage loadImage(String imageName){
         try {
-            return ImageIO.read(new File("src/main/resources/" + imageName));
+            InputStream in = getClass ().getResourceAsStream ("/" + imageName);
+            return ImageIO.read(in);
         } catch (IOException e) {
             log.error("Error reading image {}", imageName, e);
             return null;

@@ -56,7 +56,7 @@ public class ControlPanel extends JPanel {
     }
 
     private void addSimulationSpeedSelect(){
-        slider = new JSlider(JSlider.HORIZONTAL, 250, 1000, 250);
+        slider = new JSlider(JSlider.HORIZONTAL, 5, 1000, 250);
         slider.setMajorTickSpacing(250);
         slider.setSnapToTicks(true);
         slider.setPaintTicks(false);

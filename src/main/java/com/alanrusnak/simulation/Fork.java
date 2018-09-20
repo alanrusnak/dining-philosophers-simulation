@@ -3,8 +3,6 @@ package com.alanrusnak.simulation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
-
 /**
  * Created by alan on 30/07/16.
  */
