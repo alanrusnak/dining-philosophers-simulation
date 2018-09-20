@@ -34,7 +34,7 @@ public abstract class Philosopher implements Runnable{
 
     private void sleep() {
         try {
-            Thread.sleep(table.getSleepTime());
+            Thread.sleep(table.getSleepTime() + (int) (Math.random () * 6 - 3));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
